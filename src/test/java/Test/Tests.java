@@ -2,7 +2,7 @@ package Test;
 
 import org.junit.jupiter.api.Test;
 
-import cmsc495.Main;
+import laundryattendant.Main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Tests {

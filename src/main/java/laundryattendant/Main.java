@@ -1,4 +1,14 @@
-package cmsc495;
+/*
+
+ * Classname
+ * 
+ * Version information
+ *
+ * Date
+ * 
+ * Copyright notice
+ */
+package laundryattendant;
 
 public class Main {
     public static String hello(){
