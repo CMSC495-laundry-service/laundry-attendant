@@ -1,0 +1,37 @@
+.background {
+    -fx-background-image: url("background.jpg");
+    -fx-opacity:0.5;
+    -fx-background-size:cover;
+    -fx-background-color: #330066;
+}
+
+.nav {
+    -fx-background-color:white;
+    -fx-pref-width: 50px;
+}
+
+.icon {
+    -fx-background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOvfxYl11S5WFYHYY1JxeQK6n0u7wsqoPN7sudBYM&s");
+    -fx-background-size:cover;
+}
+
+.profile {
+    -fx-background-image: url("background.jpg");
+}
+
+.main-container {
+    -fx-vgrow: always;
+    -fx-hgrow: always;
+    -fx-pref-width: 100%;
+    -fx-pref-height: 100%;
+}
+
+label {
+    width: 400px;
+}
+
+.signInButton {
+    -fx-text-fill:#330066;
+    -fx-background-color: white;
+    -fx-border-color: #330066;
+}

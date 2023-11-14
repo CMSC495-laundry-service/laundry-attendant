@@ -1,0 +1,22 @@
+{
+    "tickets": [
+        {
+            "status": "PENDING",
+            "type": "LEATHER",
+            "orderId": 1,
+            "price": 45.00,
+            "name": "Jone Doe",
+            "dateReceived": "2023-11-15",
+            "dateExtimated": "2023-11-17"
+        },
+        {
+            "status": "PENDING",
+            "type": "SILK",
+            "orderId": 1,
+            "price": 30.00,
+            "name": "Jone Doe",
+            "dateReceived": "2023-11-15",
+            "dateExtimated": "2023-11-17"
+        }
+    ]
+}

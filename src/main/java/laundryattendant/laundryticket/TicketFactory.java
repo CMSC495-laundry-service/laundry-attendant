@@ -1,12 +1,12 @@
-package laundryattendant;
+package laundryattendant.laundryticket;
 
 import types.Type;
 
 import java.util.ArrayList;
 
-import laundryattendant.LaundryTicket;
+import laundryattendant.laundryticket.LaundryTicket;
 public class TicketFactory {
-    ArrayList<Ticket> list = new ArrayList<>();
+    private ArrayList<Ticket> list = new ArrayList<>();
 
     public void makeTicket(int type,String phonenum,String name){
         //Input validation

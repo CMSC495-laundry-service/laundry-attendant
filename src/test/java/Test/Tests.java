@@ -3,10 +3,19 @@ package Test;
 import org.junit.jupiter.api.Test;
 
 import laundryattendant.*;
+import laundryattendant.laundryticket.LaundryTicket;
+import laundryattendant.laundryticket.Ticket;
+import laundryattendant.laundryticket.TicketFactory;
+import laundryattendant.registernlogin.RegisterForm;
+import types.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Tests {
 
@@ -20,13 +29,28 @@ public class Tests {
         TicketFactory ticketFactory = new TicketFactory();
         ticketFactory.makeTicket(1, "3221241234", "Jone Doe");
 
-        // //is size of laundry ticket 1
+        // is size of laundry ticket 1
         assertEquals(1, ticketFactory.getSize());
 
         // is instance created
         Ticket ticket = ticketFactory.getTickets().get(0);
         assertTrue(ticket instanceof LaundryTicket);
 
+        // are all attributes correct
+        assertEquals("Jone Doe",ticket.getName());
+        assertEquals(1,ticket.getOrderID());
+        assertEquals("3221241234",ticket.getPhoneNum());
+        assertEquals(15.00,ticket.getPrice());
+        assertEquals(Status.PENDING,ticket.getStatus());
+        assertEquals(Type.RAYON,ticket.getType());
+
+        // is status updated
+        ticket.updateStatus();
+        assertEquals(Status.PROCESSING, ticket.getStatus());
+        ticket.updateStatus();
+        assertEquals(Status.COMPLETED, ticket.getStatus());
+        ticket.updateStatus();
+        assertEquals(Status.COMPLETED, ticket.getStatus());   
     }
 
     @Test
@@ -59,5 +83,10 @@ public class Tests {
         assertThrows(Error.class,()->ticketFactory.makeTicket(1,"3221231234","Averylongcharacterthatcontainsveryveryveryverylooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongword"));
 
 
+    }
+
+    @Test
+    public void testRegister() {
+        // RegisterForm registerForm = new RegisterForm("Jone","Doe", "admin@admin.com", "1234", "Admin", new GregorianCalendar(2000,Calendar.JULY,22).getTime(), Gender.MALE, "1234243535", "123 sample ave. Austin, TX, 92394", "What's the name of your pet", "guai", "1234123412341234", 333);
     }
 }

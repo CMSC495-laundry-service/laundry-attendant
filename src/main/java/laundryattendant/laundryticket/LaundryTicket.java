@@ -1,4 +1,4 @@
-package laundryattendant;
+package laundryattendant.laundryticket;
 import java.util.Date;
 
 import types.*;
