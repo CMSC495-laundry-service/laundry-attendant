@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="300.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" styleClass="ticket" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.TicketController">
+   <children>
+      <Label fx:id="typeLabel" layoutX="162.0" layoutY="46.0" prefHeight="81.0" prefWidth="212.0" text="Leather" textFill="#bfae68">
+         <font>
+            <Font name="Gabriola" size="44.0" />
+         </font>
+      </Label>
+      <Label fx:id="statusLabel" alignment="CENTER" layoutX="374.0" layoutY="20.0" prefHeight="51.0" prefWidth="135.0" text="PENDING" textFill="#ae3838">
+         <font>
+            <Font name="Comic Sans MS Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="phonenumLabel" layoutX="392.0" layoutY="218.0" prefHeight="26.0" prefWidth="159.0" text="(310)210-2030" />
+      <Label fx:id="nameLabel" alignment="CENTER_RIGHT" layoutX="360.0" layoutY="193.0" prefHeight="26.0" prefWidth="126.0" text="Name" />
+      <Label fx:id="priceLabel" layoutX="162.0" layoutY="127.0" prefHeight="81.0" prefWidth="212.0" text="\$45" textFill="#bfae68">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateLabel" alignment="CENTER" layoutX="495.0" layoutY="128.0" prefHeight="44.0" prefWidth="112.0" rotate="90.0" text="2000-9-25" textFill="#9e2929">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

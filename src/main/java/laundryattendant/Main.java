@@ -1,12 +1,17 @@
 /*
 
  * Classname
- * 
+ *  CMSC 495
  * Version information
- *
+ *  beta 0.1
  * Date
- * 
- * Copyright notice
+ *  11/20/2023
+ * Member:
+ * Austin Melvin
+ * Chris Robinson
+ * Genglin Yu
+ * Raynick Ruiters
+ * Kone Ronald
  */
 package laundryattendant;
 

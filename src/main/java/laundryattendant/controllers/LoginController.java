@@ -1,4 +1,4 @@
-package laundryattendant;
+package laundryattendant.controllers;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import laundryattendant.scene.DBUtils;
 
 public class LoginController {
     @FXML

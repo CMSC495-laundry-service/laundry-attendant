@@ -1,4 +1,4 @@
-package laundryattendant;
+package laundryattendant.controllers;
 
 import java.io.Console;
 import java.time.format.DateTimeFormatter;
@@ -12,8 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import laundryattendant.registernlogin.FormBuilder;
+import laundryattendant.scene.DBUtils;
 
-public class registerController {
+public class registerController implements Controller{
+    private String username;
     @FXML
     public TextField fNameField;
     @FXML
@@ -54,15 +56,22 @@ public class registerController {
             if (genderPicker == null) throw new Error("Gender Not Selected");
             if (!cPasswordField.getText().equals(passwordField.getText())) throw new Error("Passwords are not the Same");
 
-            FormBuilder form = new FormBuilder();
 
-            form.makeForm(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
+            FormBuilder.makeForm(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
                 usernameField.getText(), dateField.getValue(), ((RadioButton)genderPicker).getText(), phoneNumField.getText(), 
                 addressField.getText(), sQuestionField.getText(), sAnswerField.getText(), bankCardField.getText(), cvvField.getText());
-                // DBUtils.changeScene(event, "Login.fxml", "Register", null, null);
+            FormBuilder.append(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
+                usernameField.getText(), dateField.getValue().toString(), ((RadioButton)genderPicker).getText(), phoneNumField.getText(), 
+                addressField.getText(), sQuestionField.getText(), sAnswerField.getText(), bankCardField.getText(), cvvField.getText());
+            
+            DBUtils.changeScene(event, "Login.fxml", "Register", null, null);
         } catch (Error e) {
             System.out.println(e.getMessage());
         }
         
+    }
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

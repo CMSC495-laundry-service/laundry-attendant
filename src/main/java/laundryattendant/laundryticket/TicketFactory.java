@@ -65,7 +65,8 @@ public class TicketFactory {
         // assign arguments
         ticket = new LaundryTicket(cleanType, phonenum, name, username);
 
-        append();
+        if (username!= null)
+           append();
     }
 
     private void append() {

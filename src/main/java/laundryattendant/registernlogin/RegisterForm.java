@@ -55,6 +55,21 @@ public class RegisterForm implements Form{
         this.cvv = cvv;
         this.isAdmin = false;
     }
+    public String getPassword(){
+        return password;
+    }
+    public String getUsername(){
+        return username;
+    }
+    public String getSecurityAnswer(){
+        return securityAnswer;
+    }
+    public String getBankCard(){
+        return bankCard;
+    }
+    public String getCVV(){
+        return cvv;
+    }
     public String getName(){
         return firstName + ' ' + lastName;
     }

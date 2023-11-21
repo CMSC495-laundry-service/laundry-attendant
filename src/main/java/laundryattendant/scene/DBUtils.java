@@ -1,6 +1,8 @@
-package laundryattendant;
+package laundryattendant.scene;
 
-import laundryattendant.AdminController;
+import laundryattendant.controllers.AdminController;
+import laundryattendant.controllers.Controller;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

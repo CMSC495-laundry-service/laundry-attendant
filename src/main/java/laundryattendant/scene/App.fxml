@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.ClientController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.ClientController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #330066;">
          <top>
@@ -18,7 +18,7 @@
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="@rounded">
                      <image>
-                        <Image url="@laundryIcon.png" />
+                        <Image url="@../../laundryIcon.png" />
                      </image></ImageView>
                   <Label text="Laundry Attendant" textFill="WHITE" wrapText="true">
                      <font>
@@ -36,7 +36,7 @@
                            <graphic>
                               <ImageView fitHeight="47.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@icon.png" />
+                                    <Image url="@../../icon.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -58,15 +58,12 @@
             </VBox>
          </bottom>
       </BorderPane>
-      <VBox fx:id="container" alignment="CENTER" HBox.hgrow="SOMETIMES">
+      <VBox fx:id="container" HBox.hgrow="SOMETIMES">
          <children>
             <Label alignment="CENTER" text="Loading..." textAlignment="CENTER" VBox.vgrow="SOMETIMES">
                <font>
                   <Font name="Comic Sans MS" size="96.0" />
                </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
             </Label>
          </children></VBox>
       <!-- <GridPane fx:id="container" vgap="10.0" HBox.hgrow="SOMETIMES">

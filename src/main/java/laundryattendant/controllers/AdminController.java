@@ -1,4 +1,4 @@
-package laundryattendant;
+package laundryattendant.controllers;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import laundryattendant.scene.DBUtils;
 
 public class AdminController implements Controller{
     private String username;
@@ -46,11 +47,18 @@ public class AdminController implements Controller{
                 JSONObject ticketObject = (JSONObject) ticketsArray.get(i);
 
                 // Access ticket properties
-                Label status = new Label((String) ticketObject.get("status"));
+                Button status = new Button((String) ticketObject.get("status"));
+                status.setOnAction(statusEvent->{
+                    if (status.getText().equals("COMPLETED")) ;
+                    else {
+                        if (status.getText().equals("PENDING")) status.setText("PROGRESSING");
+                        else status.setText("COMPLETED");
+                        //TODO: Change data.
+                    }
+                });
                 Label type = new Label((String) ticketObject.get("type"));
                 Label orderId = new Label(String.valueOf((Long) ticketObject.get("orderId")));
                 Label phoneNum = new Label((String) ticketObject.get("phonenum"));
-                // Label price = new Label(String.valueOf((Double) ticketObject.get("price")));
                 Label name = new Label((String) ticketObject.get("name"));
                 Label dateReceived = new Label((String) ticketObject.get("dateReceived"));
                 // Label dateEstimated = new Label((String) ticketObject.get("dateEstimated"));

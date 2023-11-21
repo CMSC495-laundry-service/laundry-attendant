@@ -19,18 +19,17 @@ import com.mysql.cj.xdevapi.JsonArray;
 import types.Gender;
 
 public class FormBuilder {
-    private RegisterForm form;
-    public void makeForm(String firstName, String lastName, String email, String password, String username, 
+    public static Form makeForm(String firstName, String lastName, String email, String password, String username, 
     LocalDate dOB, String gender, String phoneNum, String address, String securityQuestion, String securityAnswer, 
     String bankCard, String cvv)
     {
-        if (firstName.length() > 25 || firstName.isEmpty())
+        if (firstName.length() > 25 || firstName.isBlank())
             throw new Error("Firstname Format Wrong!");
-        if (lastName.length() > 25 || lastName.isEmpty())
+        if (lastName.length() > 25 ||  lastName.isBlank())
             throw new Error("Lastname Format Wrong!");
         if (!email.matches(".+@.+\\.com"))
             throw new Error("Email Format Wrong!");
-        if (username.length() > 15 || username.isEmpty()) 
+        if (username.length() > 15 || username.isBlank()) 
             throw new Error("Username Format Wrong!");
         if (password.length() < 8 || password.length() > 25 ) 
             throw new Error("Password must be 9-25 characters");
@@ -42,14 +41,16 @@ public class FormBuilder {
             throw new Error("Password must contain at least one Lowercase letter");
         if (!isDigit(phoneNum) || phoneNum.length()!= 10)
             throw new Error("Phone Number format is incorrect");
-        if (address.isEmpty())
-            throw new Error("Address cannot be empty");
-        if (securityQuestion.isEmpty())
+        if (address.isBlank() || address.length() > 100)
+            throw new Error("Address exceed limit");
+        if (securityQuestion.isBlank() || securityQuestion.length() >50)
             throw new Error("Security Question cannot be empty");
-        if (securityAnswer.isEmpty())
+        if (securityAnswer.isBlank() || securityAnswer.length() >50)
             throw new Error("Security Answer cannot be empty");
-        if (!isDigit(cvv))
-            throw new Error("CVV must be digits");
+        if (bankCard.length() != 16 || !isDigit(bankCard))
+            throw new Error("Bankcard must be 16 digit");
+        if (cvv.length()!=3 || !isDigit(cvv))
+            throw new Error("CVV must be 3 digits");
         
         Gender genderObject;
         switch(gender){
@@ -63,12 +64,11 @@ public class FormBuilder {
                 genderObject = Gender.UNKNOWN;
                 break;
         }
-        form = new RegisterForm(firstName, lastName, email, password, username, dOB, genderObject, phoneNum, address, securityQuestion, securityAnswer, bankCard, cvv);
-        
-        append(firstName, lastName, email, password, username, dOB.toString(), gender, phoneNum, address, securityQuestion, securityAnswer, bankCard, cvv);
+        return new RegisterForm(firstName, lastName, email, password, username, dOB, genderObject, phoneNum, address, securityQuestion, securityAnswer, bankCard, cvv);      
+        // append(firstName, lastName, email, password, username, dOB.toString(), gender, phoneNum, address, securityQuestion, securityAnswer, bankCard, cvv);
     }
 
-    public void append(String firstName, String lastName, String email, String password, String username, 
+    public static void append(String firstName, String lastName, String email, String password, String username, 
     String dOB, String gender, String phoneNum, String address, String securityQuestion, String securityAnswer, 
     String bankCard, String cvv) {
         JSONParser jsonParser = new JSONParser();
@@ -113,7 +113,7 @@ public class FormBuilder {
         }
     }
 
-    public boolean isDigit(String str) {
+    public static boolean isDigit(String str) {
         for (int i =0; i < str.length(); i++) {
             if (!Character.isDigit(str.charAt(i)))
                 return false;

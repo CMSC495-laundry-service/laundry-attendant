@@ -1,4 +1,4 @@
-package laundryattendant;
+package laundryattendant.controllers;
 
 import java.io.FileReader;
 import java.io.Reader;
@@ -11,9 +11,11 @@ import org.json.simple.parser.JSONParser;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,6 +27,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import laundryattendant.laundryticket.Ticket;
 import laundryattendant.laundryticket.TicketFactory;
+import laundryattendant.scene.DBUtils;
 
 public class ClientController implements Controller {
     private String username;
@@ -58,43 +61,30 @@ public class ClientController implements Controller {
         try (Reader reader = new FileReader(filePath.toString())) {
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
             JSONArray ticketsArray = (JSONArray) jsonObject.get("tickets");
-            System.out.println(ticketsArray.size());
             for (int i = 0; i < ticketsArray.size(); i++) {
 
                 // Get the ticket object at index i
                 JSONObject ticketObject = (JSONObject) ticketsArray.get(i);
-                System.out.println((String) ticketObject.get("username"));
                 if (!username.equals((String) ticketObject.get("username"))) // Unless username and the name in json file
                                                                             // are same, skip
                     continue;
-                // Access ticket properties
-                Label status = new Label((String) ticketObject.get("status"));
-                Label type = new Label((String) ticketObject.get("type"));
-                Label orderId = new Label(String.valueOf((Long) ticketObject.get("orderId")));
-                Label phoneNum = new Label((String) ticketObject.get("phonenum"));
-                // Label price = new Label(String.valueOf((Double) ticketObject.get("price")));
-                Label name = new Label((String) ticketObject.get("name"));
-                Label dateReceived = new Label((String) ticketObject.get("dateReceived"));
-                // Label dateEstimated = new Label((String) ticketObject.get("dateEstimated"));
+                
+                
+                String status = (String) ticketObject.get("status");
+                String type =(String) ticketObject.get("type");
+                String phonenum = (String) ticketObject.get("phonenum");
+                String price = String.valueOf((Double) ticketObject.get("price"));
+                String name = (String) ticketObject.get("name");
+                String dateReceived = (String) ticketObject.get("dateReceived");
 
-                status.setAlignment(Pos.TOP_CENTER);
-                type.setAlignment(Pos.TOP_CENTER);
-                orderId.setAlignment(Pos.TOP_CENTER);
-                phoneNum.setAlignment(Pos.TOP_CENTER);
-                name.setAlignment(Pos.TOP_CENTER);
-                dateReceived.setAlignment(Pos.TOP_CENTER);
+                FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("../scene/ticket.fxml"));
+                Parent root = loader.load();
+                root.setScaleX(.75);
+                root.setScaleY(.75);
 
-                // RowConstraints rowConstraints = new RowConstraints();
-                // rowConstraints.setValignment(VPos.TOP);
-                // gridPane.getRowConstraints().add(new RowConstraints());
-                // gridPane.getRowConstraints().set(i, rowConstraints);
-                gridPane.add(orderId, 0, i);
-                gridPane.add(type, 1, i);
-                gridPane.add(name, 2, i);
-                gridPane.add(phoneNum, 3, i);
-                gridPane.add(dateReceived, 4, i);
-                gridPane.add(status, 5, i);
-                container.getChildren().add(gridPane);
+                TicketController controller = loader.getController();
+                controller.setAll(type, status, phonenum, name, price, dateReceived);
+                container.getChildren().add(root);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,7 +92,7 @@ public class ClientController implements Controller {
     }
 
     private void handleMouseClicked(MouseEvent event) {
-
+        container.getChildren().clear();
         if (addButton.getText().equals("+")) {
             HBox hbox1 = new HBox();
             Label typeL = new Label("Laundry Type");
@@ -147,7 +137,7 @@ public class ClientController implements Controller {
                 try {
                     ticketFactory.makeTicket(type, phoneNumF.getText(), nameF.getText(), usernameProfile.getText());
 
-                    container.getChildren().clear();
+                    displayDashboard();
                     addButton.setText("+");
                 } catch (Error e) {
                     System.out.println(e.getMessage());

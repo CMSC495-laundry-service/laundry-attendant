@@ -1,8 +1,11 @@
 .background {
-    -fx-background-image: url("background.jpg");
+    -fx-background-image: url("../background.jpg");
     -fx-opacity:0.5;
     -fx-background-size:cover;
     -fx-background-color: #330066;
+}
+.ticket {
+    -fx-background-image: url("../ticket.png");
 }
 
 .nav {
@@ -10,13 +13,8 @@
     -fx-pref-width: 50px;
 }
 
-.icon {
-    -fx-background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOvfxYl11S5WFYHYY1JxeQK6n0u7wsqoPN7sudBYM&s");
-    -fx-background-size:cover;
-}
-
 .profile {
-    -fx-background-image: url("background.jpg");
+    -fx-background-image: url("../background.jpg");
 }
 
 .main-container {
