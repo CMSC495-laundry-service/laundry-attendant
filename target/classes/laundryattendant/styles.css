@@ -29,7 +29,12 @@
 label {
     width: 400px;
 }
-
+.rounded {
+    -fx-clip: "M0,0 H200 V200 H0 Z"; /* Create a rounded rectangle clip */
+    -fx-shape: "M0,0 H200 V200 H0 Z"; /* Set the shape to match the clip */
+    -fx-border-color: black; /* Optional: Set the border color */
+    -fx-border-width: 2; /* Optional: Set the border width */
+}
 .signInButton {
     -fx-text-fill:#330066;
     -fx-background-color: white;

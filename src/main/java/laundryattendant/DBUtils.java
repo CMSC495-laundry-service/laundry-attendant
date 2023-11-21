@@ -1,11 +1,13 @@
 package laundryattendant;
 
-import java.sql.Statement;
-
+import laundryattendant.AdminController;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.google.protobuf.TextFormat.ParseException;
+
+import javafx.css.CssParser.ParseError;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,14 +15,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javafx.scene.Node;
 
 public class DBUtils {
@@ -44,13 +41,20 @@ public class DBUtils {
                         String usernameString = ((String) ticketObject.get("username"));
                         String passwordString = ((String) ticketObject.get("password"));
                         if (username.equals(usernameString) && password.equals(passwordString)) {
-                            System.out.println("1234");
-                            FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlFile));
-                            root = loader.load();
+                            boolean isAdmin = (boolean) ticketObject.get("isAdmin");
+                            FXMLLoader loader;
+                            if (isAdmin)
+                                loader = new FXMLLoader(DBUtils.class.getResource("admin.fxml"));
+                            else
+                                loader = new FXMLLoader(DBUtils.class.getResource("App.fxml"));
+                            root = (Parent) loader.load();
+                            Controller controller = loader.getController();
+                            controller.setUsername(username);
+
                         }
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (ParseException e) {
+                    System.out.println("File not found");
                 }
             } else {
                 FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlFile));
@@ -61,7 +65,10 @@ public class DBUtils {
             e.printStackTrace();
         }
 
-        if (root == null) return;
+        if (root == null) {
+            System.out.println("Username or password is incorrect.");
+            return;
+        }
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);

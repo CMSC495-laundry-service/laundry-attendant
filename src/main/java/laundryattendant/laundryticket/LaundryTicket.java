@@ -1,4 +1,5 @@
 package laundryattendant.laundryticket;
+import java.time.LocalDate;
 import java.util.Date;
 
 import types.*;
@@ -12,8 +13,9 @@ public class LaundryTicket implements Ticket{
     private final int orderId;
     private final double price;
     private final String name;
-    private final Date dateReceived;
-    private Date dateExtimated;
+    private final LocalDate dateReceived;
+    private LocalDate dateExtimated;
+    private String username;
     /*
      * ATTRIBUTE LIST:
      * enum STATUS
@@ -25,7 +27,7 @@ public class LaundryTicket implements Ticket{
      * date DATERECEIVED
      * date DATEEXTIMATED(GET FROM DATABASE)
      */
-    LaundryTicket(Type type, String phoneNum, String name){
+    LaundryTicket(Type type, String phoneNum, String name, String username){
         
         //Assigning type and price
         this.type = type;
@@ -60,8 +62,11 @@ public class LaundryTicket implements Ticket{
         this.name = name;
 
         //Assigning date received
-        Date now = new Date();
-        dateReceived = now;
+        dateReceived = LocalDate.now();
+        dateExtimated = dateReceived.plusDays(5);
+
+
+        this.username = username;
     }
     public void updateStatus(){
         switch(status) {
@@ -91,8 +96,14 @@ public class LaundryTicket implements Ticket{
     public String getName(){
         return name;
     }
-    public Date getDateRecieved(){
+    public LocalDate getDateRecieved(){
         return dateReceived;
+    }
+    public LocalDate getDateExtimated(){
+        return dateExtimated;
+    }
+    public String getUsername() {
+        return username;
     }
 
 }

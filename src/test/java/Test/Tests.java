@@ -6,6 +6,7 @@ import laundryattendant.*;
 import laundryattendant.laundryticket.LaundryTicket;
 import laundryattendant.laundryticket.Ticket;
 import laundryattendant.laundryticket.TicketFactory;
+import laundryattendant.registernlogin.FormBuilder;
 import laundryattendant.registernlogin.RegisterForm;
 import types.*;
 
@@ -88,5 +89,10 @@ public class Tests {
     @Test
     public void testRegister() {
         // RegisterForm registerForm = new RegisterForm("Jone","Doe", "admin@admin.com", "1234", "Admin", new GregorianCalendar(2000,Calendar.JULY,22).getTime(), Gender.MALE, "1234243535", "123 sample ave. Austin, TX, 92394", "What's the name of your pet", "guai", "1234123412341234", 333);
+    }
+
+    @Test
+    public void testRegisterForm(){
+        // FormBuilder.makeForm(null, null, null, null);
     }
 }

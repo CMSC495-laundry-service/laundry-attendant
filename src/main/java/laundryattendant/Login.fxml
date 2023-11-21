@@ -29,7 +29,7 @@
                <font>
                   <Font name="Comic Sans MS Bold" size="12.0" />
                </font></Button>
-            <Button layoutX="165.0" layoutY="296.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #332212;" text="Signup" textFill="WHITE">
+            <Button layoutX="165.0" onAction="#toggleRegisterEvent" layoutY="296.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #332212;" text="Signup" textFill="WHITE">
                <font>
                   <Font name="Comic Sans MS Bold" size="12.0" />
                </font></Button>

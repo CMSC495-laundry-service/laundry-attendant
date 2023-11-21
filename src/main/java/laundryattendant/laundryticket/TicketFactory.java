@@ -2,14 +2,23 @@ package laundryattendant.laundryticket;
 
 import types.Type;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import laundryattendant.laundryticket.LaundryTicket;
-public class TicketFactory {
-    private ArrayList<Ticket> list = new ArrayList<>();
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-    public void makeTicket(int type,String phonenum,String name){
-        //Input validation
+public class TicketFactory {
+    private Ticket ticket;
+
+    public void makeTicket(int type, String phonenum, String name, String username) {
+        // Input validation
         /*
          * Type: 1 <= type <= 5
          * phoneNum: long, phoneNum.length = 10
@@ -39,27 +48,67 @@ public class TicketFactory {
             default:
                 throw new Error();
         }
-        //log10 and round up to get length of int
+        // log10 and round up to get length of int
         if (phonenum.length() != 10)
-            throw new Error();
+            throw new Error("Phone number format is wrong");
         for (int i = 0; i < 10; i++) {
             if (!Character.isDigit(phonenum.charAt(i)))
-                throw new Error();
+                throw new Error("Phone number format is wrong");
         }
-        
+
         // length of name.length > 50 or empty
         if (name.trim().length() == 0)
-            throw new Error();
+            throw new Error("Name Field can't be empty");
         else if (name.length() > 50)
-            throw new Error();
+            throw new Error("Name cannot exceed 50 letters");
 
-        //assign arguments
-        list.add(new LaundryTicket(cleanType, phonenum,name));
+        // assign arguments
+        ticket = new LaundryTicket(cleanType, phonenum, name, username);
+
+        append();
     }
-    public ArrayList<Ticket> getTickets(){
-        return list;
+
+    private void append() {
+        // write data to tickets json file
+        JSONParser jsonParser = new JSONParser();
+        try
+        {
+            Path filePath = Paths.get("./src/main/java/laundryattendant/tickets.json");
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(filePath.toString()));
+            JSONArray jsonArray = (JSONArray) jsonObject.get("tickets");
+
+            System.out.println(jsonArray);
+
+            JSONObject ticketForm = new JSONObject();
+            ticketForm.put("status", ticket.getStatus().toString());
+            ticketForm.put("type", ticket.getType().toString());
+            ticketForm.put("orderId", ticket.getOrderID());
+            ticketForm.put("price",ticket.getPrice() );
+            ticketForm.put("name", ticket.getName());
+            ticketForm.put("username", ticket.getUsername());
+            ticketForm.put("phonenum", ticket.getPhoneNum());
+            ticketForm.put("dateReceived", ticket.getDateRecieved().toString());
+            ticketForm.put("dateExtimated", ticket.getDateExtimated().toString());
+
+            jsonArray.add(ticketForm);
+            System.out.println(jsonArray);
+
+            JSONObject json = new JSONObject();
+            json.put("tickets", jsonArray);
+
+            FileWriter file = new FileWriter(filePath.toString());
+            file.write(json.toJSONString());
+            file.flush();
+            file.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
-    public int getSize() {
-        return list.size();
+
+    public Ticket getTicket() {
+        return ticket;
     }
 }

@@ -1,5 +1,6 @@
 package laundryattendant.registernlogin;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import types.Gender;
@@ -26,18 +27,19 @@ public class RegisterForm implements Form{
     private String email;
     private String password;
     private String username;
-    private Date dOB;
+    private LocalDate dOB;
     private Gender gender;
     private String phoneNum;
     private String address;
     private String securityQuestion;
     private String securityAnswer;
     private String bankCard;
-    private int cvv;
+    private String cvv;
+    private boolean isAdmin;
 
     RegisterForm(String firstName,String lastName,String email,String password, String username,
-    Date dOB, Gender gender, String phoneNum, String address,String securityQuestion, String securityAnswer,
-    String bankCard, int cvv){
+    LocalDate dOB, Gender gender, String phoneNum, String address,String securityQuestion, String securityAnswer,
+    String bankCard, String cvv){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -51,6 +53,7 @@ public class RegisterForm implements Form{
         this.securityAnswer = securityAnswer;
         this.bankCard = bankCard;
         this.cvv = cvv;
+        this.isAdmin = false;
     }
     public String getName(){
         return firstName + ' ' + lastName;
@@ -64,7 +67,7 @@ public class RegisterForm implements Form{
     public Gender getGender() {
         return gender;
     }
-    public Date getDOB() {
+    public LocalDate getDOB() {
         return dOB;
     }
     public String getPhoneNum() {
@@ -72,5 +75,9 @@ public class RegisterForm implements Form{
     }
     public String getSecurityQuestion() {
         return securityQuestion;
+    }
+    @Override
+    public boolean isAdmin() {
+        return isAdmin;
     }
 }
