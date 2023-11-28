@@ -1,7 +1,15 @@
 package laundryattendant.controllers;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -9,6 +17,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.google.gson.JsonArray;
+
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,9 +40,7 @@ import laundryattendant.laundryticket.Ticket;
 import laundryattendant.laundryticket.TicketFactory;
 import laundryattendant.scene.DBUtils;
 
-public class ClientController implements Controller {
-    private String username;
-
+public class ClientController extends Controller {
     @FXML
     public Label addButton;
     @FXML
@@ -52,42 +61,27 @@ public class ClientController implements Controller {
 
     private void displayDashboard() {
         container.getChildren().clear();
-        JSONParser parser = new JSONParser();
-        GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(10));
-        gridPane.setStyle("-fx-background-color:coral;");
-
-        Path filePath = Paths.get("./src/main/java/laundryattendant/tickets.json");
-        try (Reader reader = new FileReader(filePath.toString())) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            JSONArray ticketsArray = (JSONArray) jsonObject.get("tickets");
-            for (int i = 0; i < ticketsArray.size(); i++) {
-
-                // Get the ticket object at index i
-                JSONObject ticketObject = (JSONObject) ticketsArray.get(i);
-                if (!username.equals((String) ticketObject.get("username"))) // Unless username and the name in json file
-                                                                            // are same, skip
-                    continue;
-                
-                
-                String status = (String) ticketObject.get("status");
-                String type =(String) ticketObject.get("type");
-                String phonenum = (String) ticketObject.get("phonenum");
-                String price = String.valueOf((Double) ticketObject.get("price"));
-                String name = (String) ticketObject.get("name");
-                String dateReceived = (String) ticketObject.get("dateReceived");
-
-                FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("../scene/ticket.fxml"));
-                Parent root = loader.load();
+        JSONArray data = TicketFactory.getTickets(super.getUsername(), super.getPassword());
+        for (Object obj : data) {
+            FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("../scene/ticket.fxml"));
+            Parent root;
+            try {
+                root = loader.load();
                 root.setScaleX(.75);
                 root.setScaleY(.75);
-
                 TicketController controller = loader.getController();
-                controller.setAll(type, status, phonenum, name, price, dateReceived);
+
+                JSONObject jsonData = (JSONObject) obj;
+                controller.setAll((String) jsonData.get("type"), (String) jsonData.get("status"),
+                        (String) jsonData.get("phonenum"),
+                        (String) jsonData.get("name"), (String) jsonData.get("price"),
+                        (String) jsonData.get("dateReceived"));
                 container.getChildren().add(root);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -111,7 +105,6 @@ public class ClientController implements Controller {
 
             Button payButton = new Button("Pay");
             payButton.setOnAction(payEvent -> {
-                TicketFactory ticketFactory = new TicketFactory();
                 int type = 0;
 
                 switch (typeF.getText()) {
@@ -135,8 +128,9 @@ public class ClientController implements Controller {
                         break;
                 }
                 try {
-                    ticketFactory.makeTicket(type, phoneNumF.getText(), nameF.getText(), usernameProfile.getText());
-
+                    Ticket ticket = TicketFactory.makeTicket(type, phoneNumF.getText(), nameF.getText(),
+                            usernameProfile.getText());
+                    TicketFactory.append(ticket, super.getPassword());
                     displayDashboard();
                     addButton.setText("+");
                 } catch (Error e) {
@@ -157,7 +151,7 @@ public class ClientController implements Controller {
 
     @Override
     public void setUsername(String username) {
-        this.username = username;
+        super.setUsername(username);
         usernameProfile.setText(username);
         displayDashboard();
     }

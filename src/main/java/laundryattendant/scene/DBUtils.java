@@ -1,13 +1,15 @@
 package laundryattendant.scene;
 
 import laundryattendant.controllers.AdminController;
+import laundryattendant.controllers.ClientController;
 import laundryattendant.controllers.Controller;
+import laundryattendant.registernlogin.FormBuilder;
+import laundryattendant.registernlogin.LoginForm;
 
+import org.apache.hc.client5.http.entity.mime.FormBodyPart;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import com.google.protobuf.TextFormat.ParseException;
 
 import javafx.css.CssParser.ParseError;
 import javafx.event.ActionEvent;
@@ -28,43 +30,25 @@ public class DBUtils {
         Parent root = null;
         try {
             if (title == "Dashboard") {
-                JSONParser parser = new JSONParser();
+                LoginForm loginForm = FormBuilder.get(username, password);
+                FXMLLoader loader;
+                if (loginForm.isAdmin()) {
+                    loader = new FXMLLoader(DBUtils.class.getResource("admin.fxml"));
+                } else
+                    loader = new FXMLLoader(DBUtils.class.getResource("App.fxml"));
+                
+                root = (Parent) loader.load();
+                Controller controller = loader.getController();
+                    controller.setPassword(password);
+                    controller.setUsername(username);
 
-                Path filePath = Paths.get("./src/main/java/laundryattendant/users.json");
-                try (Reader reader = new FileReader(filePath.toString())) {
-                    JSONObject jsonObject = (JSONObject) parser.parse(reader);
-                    JSONArray ticketsArray = (JSONArray) jsonObject.get("users");
-
-                    for (int i = 0; i < ticketsArray.size(); i++) {
-                        // Get the ticket object at index i
-                        JSONObject ticketObject = (JSONObject) ticketsArray.get(i);
-
-                        // Access ticket properties
-                        String usernameString = ((String) ticketObject.get("username"));
-                        String passwordString = ((String) ticketObject.get("password"));
-                        if (username.equals(usernameString) && password.equals(passwordString)) {
-                            boolean isAdmin = (boolean) ticketObject.get("isAdmin");
-                            FXMLLoader loader;
-                            if (isAdmin)
-                                loader = new FXMLLoader(DBUtils.class.getResource("admin.fxml"));
-                            else
-                                loader = new FXMLLoader(DBUtils.class.getResource("App.fxml"));
-                            root = (Parent) loader.load();
-                            Controller controller = loader.getController();
-                            controller.setUsername(username);
-
-                        }
-                    }
-                } catch (ParseException e) {
-                    System.out.println("File not found");
-                }
             } else {
                 FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlFile));
                 root = loader.load();
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         if (root == null) {

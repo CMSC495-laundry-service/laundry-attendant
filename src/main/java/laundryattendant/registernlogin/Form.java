@@ -4,12 +4,6 @@ import java.util.Date;
 
 import types.Gender;
 public interface Form {
-    String getName();
-    String getEmail();
-    String getAddress();
-    Gender getGender();
-    LocalDate getDOB();
-    String getPhoneNum();
-    String getSecurityQuestion();
-    boolean isAdmin();
+    String getUsername();
+    String getPassword();
 }

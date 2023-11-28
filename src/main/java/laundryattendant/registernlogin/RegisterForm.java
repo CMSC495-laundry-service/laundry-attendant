@@ -70,8 +70,11 @@ public class RegisterForm implements Form{
     public String getCVV(){
         return cvv;
     }
-    public String getName(){
-        return firstName + ' ' + lastName;
+    public String getFirstName(){
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
     }
     public String getEmail() {
         return email;
@@ -91,7 +94,6 @@ public class RegisterForm implements Form{
     public String getSecurityQuestion() {
         return securityQuestion;
     }
-    @Override
     public boolean isAdmin() {
         return isAdmin;
     }

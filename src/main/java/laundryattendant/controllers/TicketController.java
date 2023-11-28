@@ -3,7 +3,7 @@ package laundryattendant.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class TicketController implements Controller{
+public class TicketController{
     private String username;
     private String type;
     private String status;
@@ -23,10 +23,6 @@ public class TicketController implements Controller{
     public Label priceLabel;
     @FXML
     public Label dateLabel;
-    @Override
-    public void setUsername(String username) {
-        this.username = username;
-    }
     public void setAll(String type, String status, String phonenum, String name, 
     String price, String date)
     {

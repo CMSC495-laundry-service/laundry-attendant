@@ -11,10 +11,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import laundryattendant.registernlogin.Form;
 import laundryattendant.registernlogin.FormBuilder;
+import laundryattendant.registernlogin.RegisterForm;
 import laundryattendant.scene.DBUtils;
 
-public class registerController implements Controller{
+public class registerController{
     private String username;
     @FXML
     public TextField fNameField;
@@ -57,21 +59,19 @@ public class registerController implements Controller{
             if (!cPasswordField.getText().equals(passwordField.getText())) throw new Error("Passwords are not the Same");
 
 
-            FormBuilder.makeForm(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
+            RegisterForm form = (RegisterForm)FormBuilder.makeForm(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
                 usernameField.getText(), dateField.getValue(), ((RadioButton)genderPicker).getText(), phoneNumField.getText(), 
                 addressField.getText(), sQuestionField.getText(), sAnswerField.getText(), bankCardField.getText(), cvvField.getText());
-            FormBuilder.append(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
-                usernameField.getText(), dateField.getValue().toString(), ((RadioButton)genderPicker).getText(), phoneNumField.getText(), 
-                addressField.getText(), sQuestionField.getText(), sAnswerField.getText(), bankCardField.getText(), cvvField.getText());
+
+            FormBuilder.append(form);    
+            // FormBuilder.append(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
+            //     usernameField.getText(), dateField.getValue().toString(), ((RadioButton)genderPicker).getText(), phoneNumField.getText(), 
+            //     addressField.getText(), sQuestionField.getText(), sAnswerField.getText(), bankCardField.getText(), cvvField.getText());
             
             DBUtils.changeScene(event, "Login.fxml", "Register", null, null);
         } catch (Error e) {
             System.out.println(e.getMessage());
         }
         
-    }
-    @Override
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

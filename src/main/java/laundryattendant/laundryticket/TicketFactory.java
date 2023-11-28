@@ -2,9 +2,16 @@ package laundryattendant.laundryticket;
 
 import types.Type;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,10 +21,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class TicketFactory {
-    private Ticket ticket;
+import io.github.cdimascio.dotenv.Dotenv;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import laundryattendant.controllers.TicketController;
+import laundryattendant.registernlogin.LoginForm;
+import laundryattendant.scene.DBUtils;
 
-    public void makeTicket(int type, String phonenum, String name, String username) {
+public class TicketFactory {
+    //returns newly created laundry ticket
+    public static LaundryTicket makeTicket(int type, String phonenum, String name, String username) {
         // Input validation
         /*
          * Type: 1 <= type <= 5
@@ -63,53 +76,156 @@ public class TicketFactory {
             throw new Error("Name cannot exceed 50 letters");
 
         // assign arguments
-        ticket = new LaundryTicket(cleanType, phonenum, name, username);
-
-        if (username!= null)
-           append();
+        return new LaundryTicket(cleanType, phonenum, name, username);
     }
+    // sends ticket to the database
+    public static void append(Ticket ticket, String password) {
+        try {
+            Dotenv dotenv = Dotenv.load();
+            URL url = new URL(dotenv.get("URL") + "/createTicket");
 
-    private void append() {
-        // write data to tickets json file
-        JSONParser jsonParser = new JSONParser();
-        try
-        {
-            Path filePath = Paths.get("./src/main/java/laundryattendant/tickets.json");
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(filePath.toString()));
-            JSONArray jsonArray = (JSONArray) jsonObject.get("tickets");
+            // Open connection
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            System.out.println(jsonArray);
+            // Set request option
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json");
 
-            JSONObject ticketForm = new JSONObject();
-            ticketForm.put("status", ticket.getStatus().toString());
-            ticketForm.put("type", ticket.getType().toString());
-            ticketForm.put("orderId", ticket.getOrderID());
-            ticketForm.put("price",ticket.getPrice() );
-            ticketForm.put("name", ticket.getName());
-            ticketForm.put("username", ticket.getUsername());
-            ticketForm.put("phonenum", ticket.getPhoneNum());
-            ticketForm.put("dateReceived", ticket.getDateRecieved().toString());
-            ticketForm.put("dateExtimated", ticket.getDateExtimated().toString());
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("type", ticket.getType().toString());
+            jsonObject.put("price",ticket.getPrice());
+            jsonObject.put("datereceived",ticket.getDateRecieved().toString());
+            jsonObject.put("dateextimated",ticket.getDateExtimated().toString());
+            jsonObject.put("status",ticket.getStatus().toString());
+            jsonObject.put("phonenum", ticket.getPhoneNum());
+            jsonObject.put("name", ticket.getName());
+            jsonObject.put("username", ticket.getUsername());
+            jsonObject.put("password", password);
+            String jsonRequestBody = jsonObject.toJSONString();
+            // Convert the string to bytes using UTF-8 encoding
+            byte[] postData = jsonRequestBody.getBytes(StandardCharsets.UTF_8);
 
-            jsonArray.add(ticketForm);
-            System.out.println(jsonArray);
+            // connecting to outputstream
+            try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+                // Write to outputstream
+                wr.write(postData);
+            }
 
-            JSONObject json = new JSONObject();
-            json.put("tickets", jsonArray);
+            // Get the response code
+            int responseCode = connection.getResponseCode();
 
-            FileWriter file = new FileWriter(filePath.toString());
-            file.write(json.toJSONString());
-            file.flush();
-            file.close();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+
+                in.close();
+                System.out.println(response.toString());
+            } else {
+                System.out.println("Status code: " + responseCode);
+            }
+            connection.disconnect();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    // update client laundry status
+    public static void update(String username, String password, int ticketId, String status) {
+        Dotenv dotenv = Dotenv.load();
+        URL url;
+        try {
+            url = new URL(dotenv.get("URL")+ "/progressUpdate");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            
+            //set optional properties
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
 
-    public Ticket getTicket() {
-        return ticket;
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("username",username);
+            jsonObject.put("password",password);
+            jsonObject.put("ticketId",ticketId);
+            jsonObject.put("status",status);
+            String jsonString = jsonObject.toJSONString();
+
+            //to byte using utf-8 encoding
+            byte[] postData = jsonString.getBytes(StandardCharsets.UTF_8);
+            // connecting to outputstream
+            try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+                // Write to outputstream
+                wr.write(postData);
+            }
+
+            int responseCode = conn.getResponseCode();
+            //if responsecode is not 200
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                throw new Error("Status code :" + responseCode);
+            }
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    // sends username and password to get all the corresponding tickets
+    public static JSONArray getTickets(String username, String password) throws IllegalArgumentException{
+        Dotenv dotenv = Dotenv.load();
+        URL url;
+        try {
+            url = new URL(dotenv.get("URL") + "/ticket");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            // Set request option
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("username", username);
+            jsonObject.put("password", password);
+            String jsonRequestBody = jsonObject.toJSONString();
+            // Convert the string to bytes using UTF-8 encoding
+            byte[] postData = jsonRequestBody.getBytes(StandardCharsets.UTF_8);
+
+            // connecting to outputstream
+            try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+                // Write to outputstream
+                wr.write(postData);
+            }
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+
+                while ((inputLine = in.readLine()) != null) {
+
+                    JSONParser jsonParser = new JSONParser();
+                    try {
+
+                        JSONArray jsonArray = (JSONArray) jsonParser.parse(inputLine);
+                        return jsonArray;
+                    } catch (ParseException e) {
+                        throw new IllegalArgumentException(e);
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+        return null;
     }
 }
