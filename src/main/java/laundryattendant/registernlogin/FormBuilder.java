@@ -100,7 +100,7 @@ public class FormBuilder {
         }
     }
 
-    public static void append(RegisterForm registerForm) throws Error{
+    public static void append(RegisterForm registerForm){
         System.out.println("Connecting to the Database...");
         try {
             Dotenv dotenv = Dotenv.load();

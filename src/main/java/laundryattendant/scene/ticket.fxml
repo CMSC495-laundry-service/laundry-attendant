@@ -30,5 +30,6 @@
          </children>
       </HBox>
       <Hyperlink fx:id="moredetailHLink" layoutX="168.0" layoutY="14.0" text="More Detail" />
+      <Hyperlink fx:id="deleteHLink" visible="false" layoutX="253.0" layoutY="14.0" style="-fx-text-fill: #9e2929;" text="CANCEL" />
    </children>
 </AnchorPane>

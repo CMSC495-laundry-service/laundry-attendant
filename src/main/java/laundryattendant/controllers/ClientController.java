@@ -47,6 +47,7 @@ public class ClientController extends Controller {
                 controller.setData((JSONObject) data.get(i));
                 controller.setPassword(getPassword());
                 controller.setUsername(getUsername());
+                controller.setParentController(this);
                 container.getChildren().add(root);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -57,6 +58,8 @@ public class ClientController extends Controller {
 
     public void refresh() {
         data = TicketFactory.getTickets(super.getUsername(), super.getPassword());
+        addButton.setText("+");
+        displayDashboard();
     }
 
     private void handleMouseClicked(MouseEvent event) {
@@ -91,6 +94,5 @@ public class ClientController extends Controller {
         usernameProfile.setText(username);
         // retrieve data from database
         refresh();
-        displayDashboard();
     }
 }

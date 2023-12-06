@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import laundryattendant.laundryticket.TicketFactory;
 
 public class ClientTicketController extends Controller {
+    private Controller parentController;
     @FXML
     private Label typeLabel;
     @FXML
@@ -29,6 +30,8 @@ public class ClientTicketController extends Controller {
     private Label dateLabel;
     @FXML
     private Hyperlink moredetailHLink;
+    @FXML
+    private Hyperlink deleteHLink;
 
     public void setData(JSONObject object) {
         // set label data
@@ -40,6 +43,51 @@ public class ClientTicketController extends Controller {
         nameLabel.setText((String) object.get("name"));
         phonenumLabel.setText(phoneNumFormat);
         dateLabel.setText(((String) object.get("datereceived")).substring(0, 10));
+
+        // if status is pending, show delete button
+        if (statusLabel.getText().equals("PENDING")) {
+            deleteHLink.setVisible(true);
+            // add delete event
+            deleteHLink.setOnAction(deleteEvent -> {
+
+                VBox vBox = new VBox();
+                vBox.setAlignment(Pos.CENTER);
+
+                Label warningLabel = new Label("Are you sure you want to delete this ticket?");
+                Button okButton = new Button("OK");
+                Button cancelButton = new Button("Cancel");
+
+                // event handler for ok button
+                okButton.setOnAction(okEvent -> {
+                    String message = "";
+                    try {
+                        TicketFactory.delete(getUsername(), getPassword(),
+                                Math.toIntExact((Long) object.get("orderid")));
+                        message = "Ticket is deleted";
+                        System.out.println(parentController);
+                        ((ClientController) parentController).refresh();
+
+                    } catch (Error e) {
+                        message = e.getMessage();
+                    }
+                    vBox.getChildren().clear();
+                    vBox.getChildren().add(new Label(message));
+                });
+                // event handler for cancel button
+                cancelButton.setOnAction(cancelEvent -> {
+                    Stage stage = (Stage) cancelButton.getScene().getWindow();
+                    stage.close();
+                });
+
+                vBox.getChildren().addAll(warningLabel, okButton, cancelButton);
+
+                Stage stage = new Stage();
+                Scene scene = new Scene(vBox, 400, 200);
+                stage.setScene(scene);
+                stage.show();
+            });
+
+        }
 
         moredetailHLink.setOnAction(statusEvent -> {
             Parent parent = getDetailForm(object);
@@ -88,13 +136,14 @@ public class ClientTicketController extends Controller {
         Parent parent = getDetailForm(object);
         if (parent == null)
             parent = new Label("Ticket is not found");
-        
 
-        
         Button okButton = new Button("Accept");
         okButton.setOnAction(event -> {
-            TicketFactory.update(getUsername(), getPassword(), Math.toIntExact((Long) object.get("orderid")), "ACCEPTED");
-            //reference from scene
+            TicketFactory.update(getUsername(), getPassword(), Math.toIntExact((Long) object.get("orderid")),
+                    "ACCEPTED");
+            //update parent controller
+            ((ClientController) parentController).refresh();
+            // reference from scene
             Stage stage = (Stage) okButton.getScene().getWindow();
             stage.close();
         });
@@ -105,5 +154,9 @@ public class ClientTicketController extends Controller {
         stage.setTitle("Notification");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void setParentController(Controller controller) {
+        this.parentController = controller;
     }
 }

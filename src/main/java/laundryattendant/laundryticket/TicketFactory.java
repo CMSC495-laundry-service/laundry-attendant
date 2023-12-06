@@ -53,8 +53,44 @@ public class TicketFactory {
         return new LaundryTicket(type, phonenum, name, username,dateEstimate,comment,getTypePrice(type));
     }
 
+    // delete ticket from database
+    public static void delete(String username, String password, int ticketId) {
+        Dotenv dotenv = Dotenv.load();
+        URL url;
+        try {
+            url = new URL(dotenv.get("URL") + "/deleteTicket");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            // set optional properties
+            conn.setRequestMethod("DELETE");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("username", username);
+            jsonObject.put("password", password);
+            jsonObject.put("ticketId", ticketId);
+            String jsonString = jsonObject.toJSONString();
+
+            // to byte using utf-8 encoding
+            byte[] postData = jsonString.getBytes(StandardCharsets.UTF_8);
+            // connecting to outputstream
+            try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+                // Write to outputstream
+                wr.write(postData);
+            }
+
+            int responseCode = conn.getResponseCode();
+            // if responsecode is not 200
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                throw new Error("Status code :" + responseCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // sends ticket to the database
-    public static void append(Ticket ticket, String password) {
+    public static void append(Ticket ticket, String password) throws Error {
         try {
             Dotenv dotenv = Dotenv.load();
             URL url = new URL(dotenv.get("URL") + "/createTicket");
@@ -76,40 +112,6 @@ public class TicketFactory {
             jsonObject.put("phonenum", ticket.getPhoneNum());
             jsonObject.put("name", ticket.getName());
             jsonObject.put("comment", ticket.getComment());
-
-            // // Parameterize the HashMap
-            // HashMap<String, Object> jsonMap = new HashMap<>(jsonObject);
-
-            // // Convert the HashMap to JSON string
-            // String jsonRequestBody = new JSONObject(jsonMap).toJSONString();
-
-            // // Convert the string to bytes using UTF-8 encoding
-            // byte[] postData = jsonRequestBody.getBytes(StandardCharsets.UTF_8);
-
-            // // connecting to outputstream
-            // try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
-            //     // Write to outputstream
-            //     wr.write(postData);
-            // }
-
-            // // Get the response code
-            // int responseCode = connection.getResponseCode();
-
-            // if (responseCode == HttpURLConnection.HTTP_OK) {
-            //     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            //     String inputLine;
-            //     StringBuilder response = new StringBuilder();
-
-            //     while ((inputLine = in.readLine()) != null) {
-            //         response.append(inputLine);
-            //     }
-
-            //     in.close();
-            //     System.out.println(response.toString());
-            // } else {
-            //     System.out.println("Status code: " + responseCode);
-            // }
-            // connection.disconnect();
             jsonObject.put("username", ticket.getUsername());
             jsonObject.put("password", password);
             String jsonRequestBody = jsonObject.toJSONString();
@@ -179,12 +181,6 @@ public class TicketFactory {
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 throw new Error("Status code :" + responseCode);
             }
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
