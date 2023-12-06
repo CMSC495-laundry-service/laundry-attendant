@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.PayController">
+   <children>
+      <VBox layoutX="32.0" layoutY="70.0" prefHeight="660.0" prefWidth="622.0" style="-fx-border-radius: 10; -fx-border-color: #330066;">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="SOMETIMES">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="620.0" style="-fx-background-color: #330066;">
+                     <children>
+                        <Label text="Orders" textFill="WHITE">
+                           <graphic>
+                              <Label>
+                                 <font>
+                                    <Font name="Comic Sans MS" size="36.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="alert" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="620.0" style="-fx-padding: 2; -fx-background-color: #ff00002b; -fx-spacing: 5;" visible="false">
+                     <children>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../alert.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="alertMessage" />
+                     </children>
+                  </HBox>
+                  <VBox fillWidth="false" prefHeight="602.0" prefWidth="830.0" style="-fx-padding: 20; -fx-spacing: 10;" VBox.vgrow="SOMETIMES">
+                     <children>
+                        <Label text="Name">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="nameField" prefHeight="25.0" prefWidth="175.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Clean Type">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <ComboBox fx:id="type" onAction="#selectType" prefWidth="163.0" />
+                        <Label text="Phone Number">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="phonenumField" prefHeight="25.0" prefWidth="175.0" />
+                        <Label text="Comment">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="commentField" prefHeight="109.0" prefWidth="482.0" wrapText="true" />
+                        <Label text="Schedule Pickup Date">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="date" editable="false" prefHeight="21.0" prefWidth="197.0" VBox.vgrow="SOMETIMES" />
+                        <Label text="Total">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="\$">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="priceLabel">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#payEvent" prefHeight="47.0" prefWidth="105.0" style="-fx-background-color: #330066;" text="Pay" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
