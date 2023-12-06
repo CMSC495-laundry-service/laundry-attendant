@@ -10,25 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Properties;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import laundryattendant.laundryticket.Ticket;
-import laundryattendant.laundryticket.TicketFactory;
 import types.Gender;
 
 public class FormBuilder {
@@ -81,8 +66,6 @@ public class FormBuilder {
         
         return new RegisterForm(firstName, lastName, email, password, username, dOB, genderObject, phoneNum, address,
                 securityQuestion, securityAnswer, bankCard, cvv);
-        // append(firstName, lastName, email, password, username, dOB.toString(),
-        // gender, phoneNum, address, securityQuestion, securityAnswer, bankCard, cvv);
     }
 
     public static LoginForm get(String username, String password) throws Exception {
@@ -111,11 +94,11 @@ public class FormBuilder {
 
         } else {
             connection.disconnect();
-            throw new Exception("Status code: " + responseCode);
+            throw new Error("Status code: " + responseCode);
         }
     }
 
-    public static void append(RegisterForm registerForm) {
+    public static void append(RegisterForm registerForm) throws Error{
         System.out.println("Connecting to the Database...");
         try {
             Dotenv dotenv = Dotenv.load();
@@ -170,12 +153,15 @@ public class FormBuilder {
                 in.close();
                 System.out.println(response.toString());
             } else {
-                System.out.println("Status code: " + responseCode);
+                throw new Exception(connection.getInputStream().toString());
             }
             connection.disconnect();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e){
+            throw new Error("Username already exists");
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
     

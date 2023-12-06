@@ -16,20 +16,16 @@ import laundryattendant.registernlogin.LoginForm;
 import laundryattendant.registernlogin.RegisterForm;
 import types.*;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Properties;
 
 public class Tests {
 
@@ -41,16 +37,17 @@ public class Tests {
         @Test
         public void testIsTicketCreated() {
                 // is instance created
-                Ticket ticket = TicketFactory.makeTicket(1, "3221241234", "Jone Doe", null);
+                Ticket ticket = TicketFactory.makeTicket(Type.CASUALDRESS, "3221241234", "Jone Doe", null,LocalDate.now().plusDays(5),"This is the test comment");
                 assertTrue(ticket instanceof LaundryTicket);
 
                 // are all attributes correct
                 assertEquals("Jone Doe", ticket.getName());
                 assertEquals(1, ticket.getOrderID());
                 assertEquals("3221241234", ticket.getPhoneNum());
-                assertEquals(15.00, ticket.getPrice());
+                assertEquals(16.95, ticket.getPrice());
                 assertEquals(Status.PENDING, ticket.getStatus());
-                assertEquals(Type.RAYON, ticket.getType());
+                assertEquals(Type.CASUALDRESS, ticket.getType());
+                assertEquals("This is the test comment", ticket.getComment());
 
                 // is status updated
                 ticket.updateStatus();
@@ -64,32 +61,33 @@ public class Tests {
         @Test
         public void testTicketConstraints() {
 
-                // type number not available(-1)
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(-1, "3221241234", "Jone Doe", null));
-
-                // type number not available(99)
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(99, "3221241234", "Jone Doe", null));
+                // type selection can be only Types enum. No other type is allowed
 
                 // phonenum less than 10 digit
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(1, "32212", "Jone Doe", null));
+                assertThrows(Error.class, () -> TicketFactory.makeTicket(Type.CASUALDRESS, "32212", "Jone Doe", null,LocalDate.now().plusDays(5), null));
 
                 // phonenum bigger than 10 digit
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(1, "322123412345", "Jone Doe", null));
+                assertThrows(Error.class, () -> TicketFactory.makeTicket(Type.CASUALDRESS, "322123412345", "Jone Doe", null,LocalDate.now().plusDays(5),null));
 
                 // phonenum not digit
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(1, "322123123L", "Jone Doe", null));
+                assertThrows(Error.class, () -> TicketFactory.makeTicket(Type.CASUALDRESS, "322123123L", "Jone Doe", null,LocalDate.now().plusDays(5), null));
 
                 // name is empty
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(1, "3221231234", "  ", null));
+                assertThrows(Error.class, () -> TicketFactory.makeTicket(Type.CASUALDRESS, "3221231234", "  ", null,LocalDate.now().plusDays(5), null));
 
                 // name is empty 2
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(1, "3221231234", "", null));
+                assertThrows(Error.class, () -> TicketFactory.makeTicket(Type.CASUALDRESS, "3221231234", "", null,LocalDate.now().plusDays(5), null));
 
                 // name has more than 50 characters
-                assertThrows(Error.class, () -> TicketFactory.makeTicket(1, "3221231234",
+                assertThrows(Error.class, () -> TicketFactory.makeTicket(Type.CASUALDRESS, "3221231234",
                                 "Averylongcharacterthatcontainsveryveryveryverylooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongword",
-                                null));
+                                null,LocalDate.now().plusDays(5), null));
+                
+                // dateEstimate can be only within 14 days
 
+                // comment has more than 100 characters
+                assertThrows(Error.class, () -> TicketFactory.makeTicket(Type.CASUALDRESS, "3221231234", "Jone Doe",
+                                null,LocalDate.now().plusDays(5), "Averylongcharacterthatcontainsveryveryveryverylooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooogword"));
         }
 
         @Test
@@ -309,7 +307,10 @@ public class Tests {
                                         "what's your favorite food",
                                         "pancake", "1234123412341234", "123");
                         FormBuilder.append(registerForm);
-                } catch (IllegalStateException e) {
+                } catch (Error e) {
+                        assertTrue(true);       //success, user already registered
+                }
+                 catch (Exception e) {
                         fail("Connection Failed");
                 }
         }
@@ -336,7 +337,7 @@ public class Tests {
 
         @Test
         public void testTicketDB() {
-                Ticket ticket = TicketFactory.makeTicket(1, "3221241234", "Jone Doe", "client");
+                Ticket ticket = TicketFactory.makeTicket(Type.CASUALDRESS, "3221241234", "Jone Doe", "client",LocalDate.now().plusDays(10),"This is the test comment");
                 try {
                       TicketFactory.append(ticket,"12341234aA");  
                 } catch (Exception e) {
@@ -347,7 +348,7 @@ public class Tests {
                 boolean found = false;
                 for (Object obj : jsonArray) {
                         JSONObject jsonObject= (JSONObject) obj;
-                        if (((String)jsonObject.get("type")).equals("RAYON") && ((String)jsonObject.get("phonenum")).equals("3221241234") 
+                        if (((String)jsonObject.get("type")).equals("CASUALDRESS") && ((String)jsonObject.get("phonenum")).equals("3221241234") 
                         && ((String) jsonObject.get("name")).equals("Jone Doe") && ((String)jsonObject.get("username")).equals("client"))
                                 found = true;
                 }    

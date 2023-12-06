@@ -1,7 +1,6 @@
 package laundryattendant.registernlogin;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import types.Gender;
 

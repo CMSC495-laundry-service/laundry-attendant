@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.registerController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.RegisterController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-spacing: 10;">
          <children>
@@ -34,6 +34,16 @@
             <Image url="@../../background.jpg" />
          </image>
       </ImageView>
+      <HBox fx:id="alert" visible="false" alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="620.0" style="-fx-padding: 2; -fx-background-color: #ff00002b; -fx-spacing: 5;">
+                     <children>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../alert.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="alertMessage" />
+                     </children>
+                  </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 30;" VBox.vgrow="SOMETIMES">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" style="-fx-spacing: 50;">

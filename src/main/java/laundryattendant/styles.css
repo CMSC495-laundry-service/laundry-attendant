@@ -6,6 +6,10 @@
 }
 .ticket {
     -fx-background-image: url("../ticket.png");
+    -fx-background-size:stretch;
+}
+.ticketStatus {
+    -fx-background-color: #9e2929;
 }
 
 .nav {

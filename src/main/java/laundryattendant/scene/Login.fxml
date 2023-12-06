@@ -4,11 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.LoginController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.LoginController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="500.0" styleClass="background">
          <children>
@@ -19,17 +21,17 @@
             </Label> -->
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="400.0" prefWidth="419.0">
+      <AnchorPane prefHeight="400.0" prefWidth="419.0" HBox.hgrow="SOMETIMES">
          <children>
             <Label layoutX="67.0" layoutY="115.0" text="UserName" />
             <Label layoutX="70.0" layoutY="168.0" text="Password" />
-            <TextField fx:id="usernameField" layoutX="130.0" layoutY="111.0" />
-            <PasswordField fx:id="passwordField" layoutX="130.0" layoutY="164.0" />
-            <Button layoutX="130.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleLoginEvent" prefWidth="100.0" styleClass="signInButton" text="Login">
+            <TextField fx:id="usernameField" layoutX="147.0" layoutY="111.0" />
+            <PasswordField fx:id="passwordField" layoutX="147.0" layoutY="164.0" />
+            <Button layoutX="63.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleLoginEvent" prefWidth="100.0" styleClass="signInButton" text="Login">
                <font>
                   <Font name="Comic Sans MS Bold" size="12.0" />
                </font></Button>
-            <Button layoutX="165.0" onAction="#toggleRegisterEvent" layoutY="296.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #332212;" text="Signup" textFill="WHITE">
+            <Button layoutX="165.0" layoutY="296.0" mnemonicParsing="false" onAction="#toggleRegisterEvent" prefWidth="100.0" style="-fx-background-color: #332212;" text="Signup" textFill="WHITE">
                <font>
                   <Font name="Comic Sans MS Bold" size="12.0" />
                </font></Button>
@@ -38,6 +40,16 @@
                   <Font name="Comic Sans MS" size="12.0" />
                </font>
             </Label>
+            <HBox fx:id="alert" layoutX="31.0" layoutY="43.0" prefHeight="28.0" prefWidth="638.0" style="-fx-background-color: #ff00002b; -fx-padding: 5;" visible="false">
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../alert.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="alertMessage" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </children>

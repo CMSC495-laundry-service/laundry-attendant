@@ -1,5 +1,5 @@
 package types;
 
 public enum Status {
-    PENDING, PROCESSING, COMPLETED
+    PENDING, PROCESSING, COMPLETED,ACCEPTED
 }

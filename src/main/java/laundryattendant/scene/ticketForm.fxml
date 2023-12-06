@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.TicketController">
+   <children>
+      <ImageView fitHeight="58.0" fitWidth="55.0" layoutX="23.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../laundryIcon.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="21.0" layoutY="96.0" prefHeight="17.0" prefWidth="409.0" style="-fx-background-color: #332266;" text="Laundry/Dry Clean Ticket" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="nameLabel" alignment="CENTER" layoutX="85.0" layoutY="19.0" prefHeight="17.0" prefWidth="280.0" text="NAME" textFill="#332266">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="addressLabel" alignment="CENTER" layoutX="85.0" layoutY="46.0" prefHeight="17.0" prefWidth="280.0" text="ADDRESS" textFill="#332266">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="125.0" layoutY="59.0" prefHeight="25.0" prefWidth="200.0" style="-fx-spacing: 5;">
+         <children>
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" text="Ph:" textFill="#332266">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="phonenumLabel" alignment="CENTER" prefHeight="17.0" text="1-" textFill="#332266">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="TOP" layoutX="338.0" layoutY="23.0" text="PENDING" textFill="#c73324">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <VBox layoutX="38.0" layoutY="156.0" prefHeight="506.0" prefWidth="375.0" style="-fx-border-color: #332266; -fx-border-radius: 5;">
+         <children>
+            <HBox prefWidth="248.0" style="-fx-background-color: #dcd8e3; -fx-background-radius: 5 5 0 0; -fx-border-width: 0 0 1 0; -fx-border-color: #332266;" VBox.vgrow="SOMETIMES">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="TYPE" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="PRICE" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" text="QTY" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="SHIRT" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$4.50" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="shirtLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="POLO" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$4.50" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="poloLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="BLOUSE" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$9.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="blouserLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="SWEATHER" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$11.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sweatherLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="JACKET" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$11.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="jacketLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="VEST" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$11.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="vestLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="PANTS" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$11.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pantsLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="SKIRT" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$9.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="skirtLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="SHORTS" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$9.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="shortsLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="CASUAL DRESS" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$16.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="casualDressLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="FORMAL DRESS" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$23.90" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="formalDressLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="COAT" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$11.95" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="coatLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="FULL SUIT" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$23.90" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="fullSuitLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="BATHMAT" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$5" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="bathMatLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="BLANKET" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$15" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="blanketLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="COVER" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$15" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="coverLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="ACCESORY" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="\$8" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="accessoryLabel" alignment="TOP_LEFT" prefHeight="30.0" prefWidth="280.0" style="-fx-label-padding: 2;" textFill="#332266" />
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: #332266; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="330.0" style="-fx-label-padding: 2; -fx-border-color: #332266; -fx-border-width: 0 1 0 0;" text="TOTAL" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="priceLabel" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="200.0" style="-fx-label-padding: 2;" textFill="#332266">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="38.0" layoutY="679.0" prefHeight="87.0" prefWidth="375.0" style="-fx-border-color: #332266; -fx-border-radius: 5; -fx-padding: 2;">
+         <children>
+            <Label alignment="TOP_LEFT" prefWidth="280.0" text="Special Instruction:" textFill="#332266">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="commentArea" alignment="TOP_LEFT" textFill="#332266" wrapText="true" />
+            
+         </children>
+      </VBox>
+      <Label fx:id="dateLabel" alignment="CENTER_RIGHT" layoutX="311.0" layoutY="63.0" style="-fx-label-padding: 2; -fx-border-color: #c73324;" text="XXXX-XX-XX" textFill="#c73324">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="156.0" layoutY="129.0" text="OrderID:" textFill="#332266" />
+      <Label fx:id="orderIdLabel" layoutX="212.0" layoutY="129.0" textFill="#332266" />
+   </children>
+</AnchorPane>

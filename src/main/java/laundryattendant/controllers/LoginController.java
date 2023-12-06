@@ -1,19 +1,11 @@
 package laundryattendant.controllers;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import laundryattendant.scene.DBUtils;
 
 public class LoginController {
@@ -22,12 +14,19 @@ public class LoginController {
     @FXML
     public PasswordField passwordField;
     @FXML
+    public Label alertMessage;
+    @FXML
+    public HBox alert;
+    @FXML
     public void handleLoginEvent(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
-
-        DBUtils.changeScene(event, null, "Dashboard", username, password);
-        // DBUtils.changeScene(event, "App.fxml", "DashBoard", null, null);
+        try {
+            DBUtils.changeScene(event, null, "Dashboard", username, password);
+        } catch(Error e) {
+            alertMessage.setText(e.getMessage());
+            alert.setVisible(true);
+        }
     }
     @FXML
     public void toggleRegisterEvent(ActionEvent event) {

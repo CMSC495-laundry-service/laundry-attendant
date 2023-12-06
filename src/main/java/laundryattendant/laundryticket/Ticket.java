@@ -1,7 +1,6 @@
 package laundryattendant.laundryticket;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import types.*;
 
@@ -25,4 +24,6 @@ public interface Ticket {
     public LocalDate getDateExtimated();
 
     public String getUsername();
+
+    public String getComment();
 }

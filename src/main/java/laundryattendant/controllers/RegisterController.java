@@ -1,23 +1,20 @@
 package laundryattendant.controllers;
 
-import java.io.Console;
-import java.time.format.DateTimeFormatter;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import laundryattendant.registernlogin.Form;
+import javafx.scene.layout.HBox;
 import laundryattendant.registernlogin.FormBuilder;
 import laundryattendant.registernlogin.RegisterForm;
 import laundryattendant.scene.DBUtils;
 
-public class registerController{
-    private String username;
+public class RegisterController{
     @FXML
     public TextField fNameField;
     @FXML
@@ -47,6 +44,10 @@ public class registerController{
     @FXML
     public TextField cvvField;
     @FXML
+    public Label alertMessage;
+    @FXML
+    public HBox alert;
+    @FXML
     public void toggleLoginEvent(ActionEvent event) {
         DBUtils.changeScene(event, "Login.fxml", "Register", null, null);
     }
@@ -64,13 +65,11 @@ public class registerController{
                 addressField.getText(), sQuestionField.getText(), sAnswerField.getText(), bankCardField.getText(), cvvField.getText());
 
             FormBuilder.append(form);    
-            // FormBuilder.append(fNameField.getText(), lNameField.getText(), emailField.getText(), passwordField.getText(), 
-            //     usernameField.getText(), dateField.getValue().toString(), ((RadioButton)genderPicker).getText(), phoneNumField.getText(), 
-            //     addressField.getText(), sQuestionField.getText(), sAnswerField.getText(), bankCardField.getText(), cvvField.getText());
-            
+    
             DBUtils.changeScene(event, "Login.fxml", "Register", null, null);
         } catch (Error e) {
-            System.out.println(e.getMessage());
+            alert.setVisible(true);
+            alertMessage.setText(e.getMessage());
         }
         
     }
