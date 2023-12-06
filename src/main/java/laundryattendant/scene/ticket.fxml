@@ -8,19 +8,14 @@
 
 <AnchorPane maxHeight="300.0" maxWidth="600.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="800.0" styleClass="ticket" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="laundryattendant.controllers.ClientTicketController">
    <children>
-      <Label fx:id="typeLabel" alignment="CENTER_RIGHT" layoutX="252.0" layoutY="7.0" prefHeight="81.0" prefWidth="309.0" text="Leather" textFill="#bfae68">
+      <Label fx:id="typeLabel" alignment="CENTER_RIGHT" layoutX="410.0" layoutY="10.0" prefHeight="81.0" prefWidth="309.0" text="Type" textFill="#bfae68">
          <font>
             <Font name="Gabriola" size="25.0" />
          </font>
       </Label>
       <Label fx:id="phonenumLabel" layoutX="173.0" layoutY="63.0" prefHeight="26.0" prefWidth="159.0" text="(310)210-2030" />
       <Label fx:id="nameLabel" layoutX="173.0" layoutY="37.0" prefHeight="26.0" prefWidth="126.0" text="Name" />
-      <Label fx:id="priceLabel" layoutX="588.0" layoutY="10.0" prefHeight="81.0" prefWidth="212.0" text="\$45" textFill="#bfae68">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Label>
-      <Label fx:id="dateLabel" alignment="CENTER" layoutX="722.0" layoutY="28.0" prefHeight="44.0" prefWidth="112.0" rotate="90.0" text="2000-9-25" textFill="#9e2929">
+      <Label fx:id="dateLabel" alignment="CENTER" layoutX="722.0" layoutY="28.0" prefHeight="44.0" prefWidth="112.0" rotate="90.0" text="xxxx-xx-xx" textFill="#9e2929">
          <font>
             <Font size="18.0" />
          </font>

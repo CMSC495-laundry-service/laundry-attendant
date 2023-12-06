@@ -41,11 +41,7 @@ public class AdminController extends Controller {
                 // Access ticket properties
                 Hyperlink moredetailHLink = new Hyperlink("More Detail");
                 moredetailHLink.setOnAction(statusEvent -> {
-                    // if (status.getText().equals("COMPLETED"))
-                    // ;
-                    // else {
-                    // if (status.getText().equals("PENDING")) {
-                    // status.setText("PROCESSING");
+                    //new stage for ticket detail
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../scene/ticketForm.fxml"));
                     Parent root;
                     try {
@@ -66,14 +62,6 @@ public class AdminController extends Controller {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-
-                    // TicketFactory.update(getUsername(), getPassword(),
-                    // Integer.parseInt(status.getId()),"PROCESSING");
-                    // }
-
-                    // else
-                    // status.setText("COMPLETED");
-                    // }
                 });
 
                 Label type = new Label((String) ticketObject.get("type"));
@@ -104,8 +92,8 @@ public class AdminController extends Controller {
                     }
                     renderStatus(status);
                 });
-                ;
 
+                // set row constraints and add to ticketContainer
                 RowConstraints rowConstraints = new RowConstraints();
                 rowConstraints.setValignment(VPos.TOP);
                 ticketContainer.getRowConstraints().add(new RowConstraints());
@@ -122,6 +110,7 @@ public class AdminController extends Controller {
         }
     }
 
+    // set Label color based on status
     private Label renderStatus(Label statusLabel) {
         String stylesheet = "-fx-padding: 2px;-fx-border-color: black;";
         if (statusLabel.getText().equals("ACCEPTED"))

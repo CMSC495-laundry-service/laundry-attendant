@@ -2,8 +2,6 @@ package laundryattendant.registernlogin;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -22,6 +20,7 @@ public class FormBuilder {
             LocalDate dOB, String gender, String phoneNum, String address, String securityQuestion,
             String securityAnswer,
             String bankCard, String cvv) {
+                // Validate input
         if (firstName.length() > 25 || firstName.isBlank())
             throw new Error("Firstname Format Wrong!");
         if (lastName.length() > 25 || lastName.isBlank())
@@ -92,9 +91,12 @@ public class FormBuilder {
             connection.disconnect();
             return loginForm;
 
+        } else if((responseCode == HttpURLConnection.HTTP_UNAUTHORIZED)){
+            connection.disconnect();
+            throw new Exception("Username or password is incorrect.");
         } else {
             connection.disconnect();
-            throw new Error("Status code: " + responseCode);
+            throw new Exception("Internal Server Error");
         }
     }
 
@@ -161,7 +163,8 @@ public class FormBuilder {
             throw new Error("Username already exists");
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
     

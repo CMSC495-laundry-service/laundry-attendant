@@ -5,12 +5,10 @@ import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import javafx.scene.control.Label;
 import laundryattendant.*;
 import laundryattendant.laundryticket.LaundryTicket;
 import laundryattendant.laundryticket.Ticket;
 import laundryattendant.laundryticket.TicketFactory;
-import laundryattendant.registernlogin.Form;
 import laundryattendant.registernlogin.FormBuilder;
 import laundryattendant.registernlogin.LoginForm;
 import laundryattendant.registernlogin.RegisterForm;
@@ -21,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
@@ -283,6 +280,7 @@ public class Tests {
                                                 "1234123412341234", "1234"));
         }
 
+        //if test failed, check if the .env file DB_STRING is correct
         @Test
         public void testDBString() {
                 // loading dotenv

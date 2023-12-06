@@ -26,8 +26,6 @@ public class ClientTicketController extends Controller {
     @FXML
     private Label phonenumLabel;
     @FXML
-    private Label priceLabel;
-    @FXML
     private Label dateLabel;
     @FXML
     private Hyperlink moredetailHLink;
@@ -41,7 +39,6 @@ public class ClientTicketController extends Controller {
         statusLabel.setText((String) object.get("status"));
         nameLabel.setText((String) object.get("name"));
         phonenumLabel.setText(phoneNumFormat);
-        priceLabel.setText("$" + (String) object.get("price"));
         dateLabel.setText(((String) object.get("datereceived")).substring(0, 10));
 
         moredetailHLink.setOnAction(statusEvent -> {
