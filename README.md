@@ -40,6 +40,15 @@ Laundry Attendant is a Java-based application developed for the CMSC 495 final p
 
 - **Dashboard:**
   - Purchased tickets are displayed on the user dashboard.
+ 
+- **Receipt Detail:**
+  - User can go to the specific ticket and click on **_show detail_** to view the receipt containing full detail.
+ 
+- **Cancel**
+  - If the order status is PENDING, user can cancel their order.
+ 
+- **Notification**
+  - Once the clothes are finished, user will receive a notification when logging in. Click accept to accept the completed order.
 
 ### Admin Functionality
 
@@ -49,10 +58,17 @@ Laundry Attendant is a Java-based application developed for the CMSC 495 final p
 - **Laundry History:**
   - Admin can view the entire laundry history from the dashboard.
 
-- **Notification:**
-  - Admin can send notifications to clients when the laundry is finished.
+- **Receipt Detail:**
+  - Admin can click show detail to see client's order receipt.
 
-## Contributing
+### Video Demonstration
+
+
+https://github.com/CMSC495-laundry-service/laundry-attendant/assets/115853113/91084316-2a55-4fef-bcb7-27b58f9d8927
+
+
+
+### Contributing
 
 Feel free to contribute to the development of Laundry Attendant.
 
