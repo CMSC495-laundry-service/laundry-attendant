@@ -64,7 +64,8 @@ Laundry Attendant is a Java-based application developed for the CMSC 495 final p
 ### Video Demonstration
 
 
-https://github.com/CMSC495-laundry-service/laundry-attendant/assets/115853113/91084316-2a55-4fef-bcb7-27b58f9d8927
+https://github.com/CMSC495-laundry-service/laundry-attendant/assets/115853113/6decacf2-2695-44c7-b0a6-2fc3967e0fad
+
 
 
 
